@@ -33,6 +33,7 @@ public class Deffenseur extends Mode {
                 System.out.print("Proposition : " + sE + " -> Réponse : ");
                 //Méthode pour comparer les deux combinaisons
                 obj.compare(sE, sP);
+
                 sE = obj.generateNew(sE, sP);
 
 
@@ -53,6 +54,8 @@ public class Deffenseur extends Mode {
         Deffenseur obj = new Deffenseur();
         List<String> lS = new ArrayList();
         List<Integer> lA = new ArrayList();
+        int g = 0;
+        int h = 0;
 
         int aPcd[] = new int[4];
         int aStk[] = new int[4];
@@ -72,18 +75,23 @@ public class Deffenseur extends Mode {
                 //Conditions pour comparer et définir l'indication à retourner
                 if (p < e) {
                     // lC.add(Integer.toString(e - 1));
-                       aStk[i]=e;lR[i]=e;
+                       aPcd[i]=e;//lR[i]=e;
                     do {
-                        aPcd[i] = obj.generateCode2(1, (e - 1));
-                    } while ((aPcd[i] < aStk[i]) && (aStk[i] != lR[i]));
+                         g  = obj.generateCode2(1, (e - p));
+
+                    } while (h>e) ;                                            //        (aPcd[i] > aStk[i]);
+                    aStk[i] = g;
+                    // && (aStk[i] != lR[i]));
                     //    lR.add(obj.generateCode2(1,(e-1)));
                     // }while (lA.get(i)<lR.get(i));
                 }
                 if (p > e) {
-                    aStk[i] = e;lR[i]=e;
+                    aPcd[i] = e;//lR[i]=e;
                     do {
-                       aPcd[i] = obj.generateCode2((aPcd[i]+ 1), 9);
-                    } while ((aPcd[i] > aStk[i]) && (aStk[i] != lR[i]));
+                      h = obj.generateCode2((e + 1), p);
+                    } while     (h<e) ;                                           //(aPcd[i] < aStk[i]);
+                    aStk[i]=h;
+                    // && (aStk[i] != lR[i]));
                     // lC.add(Integer.toString(e + 1));
 //                    lA.add(e);
 //                    do {
@@ -91,19 +99,22 @@ public class Deffenseur extends Mode {
 //                    }while (lA.get(i)>lR.get(i));
                 }
                 if (p == e) {
-                    aPcd[i] = e;lR[i]=e;
+                    aStk[i] = e;//lR[i]=e;
 
                     aStk[i] = obj.generateCode2(e, e);
                 }
-                aStk = aPcd;
+               // aStk = aPcd;
             }
         }
-        //   lR.toString();
+
+        //   Transforme int array en string array
         for (int j = 0; j < aStk.length; j++) {
             aFnl[j] = String.valueOf(aStk[j]);
         }
-        newSe = Deffenseur.convertArrayToStringMethod(aFnl);
+        newSe = Deffenseur.ArrayToString(aFnl);
         aStk= aPcd;
+        System.out.println(" constante final "+Deffenseur.ArrayToString(aFnl));
+        System.out.println(" constante precedent "+Deffenseur.ArrayToString(aFnl));
 
         //retour Arraylist
         return newSe;
@@ -117,7 +128,7 @@ public class Deffenseur extends Mode {
         return a; //Retour combinaison
     }
 
-    public static String convertArrayToStringMethod(String[] strArray) {
+    public static String ArrayToString(String[] strArray) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < strArray.length; i++) {
             stringBuilder.append(strArray[i]);
