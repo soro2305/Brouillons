@@ -72,17 +72,17 @@ public class Deffenseur extends Mode {
                 //Conditions pour comparer et définir l'indication à retourner
                 if (p < e) {
                     // lC.add(Integer.toString(e - 1));
-                    aPcd[i] = e;lR[i]=e;
+                       aStk[i]=e;lR[i]=e;
                     do {
-                        aStk[i] = obj.generateCode2(1, (e - 1));
+                        aPcd[i] = obj.generateCode2(1, (e - 1));
                     } while ((aPcd[i] < aStk[i]) && (aStk[i] != lR[i]));
                     //    lR.add(obj.generateCode2(1,(e-1)));
                     // }while (lA.get(i)<lR.get(i));
                 }
                 if (p > e) {
-                    aPcd[i] = e;lR[i]=e;
+                    aStk[i] = e;lR[i]=e;
                     do {
-                        aStk[i] = obj.generateCode2((e + 1), 9);
+                       aPcd[i] = obj.generateCode2((aPcd[i]+ 1), 9);
                     } while ((aPcd[i] > aStk[i]) && (aStk[i] != lR[i]));
                     // lC.add(Integer.toString(e + 1));
 //                    lA.add(e);
@@ -95,7 +95,7 @@ public class Deffenseur extends Mode {
 
                     aStk[i] = obj.generateCode2(e, e);
                 }
-                aPcd = aStk;
+                aStk = aPcd;
             }
         }
         //   lR.toString();
@@ -103,7 +103,7 @@ public class Deffenseur extends Mode {
             aFnl[j] = String.valueOf(aStk[j]);
         }
         newSe = Deffenseur.convertArrayToStringMethod(aFnl);
-        aPcd = aStk;
+        aStk= aPcd;
 
         //retour Arraylist
         return newSe;
