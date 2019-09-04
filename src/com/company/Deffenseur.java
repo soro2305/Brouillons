@@ -18,7 +18,7 @@ public class Deffenseur extends Mode {
         int tours = 20;//Nombres de tours de la partie
         int rejouer = 0;
         int i;
-        System.out.println("Bienvenu dans le mode DÃ©ffenseur! ");
+        System.out.println("Bienvenu dans le mode Déffenseur! ");
         //Définition combinaison utilisateur
         codeUser = deffObj1.define();
         //Définition 1 er combinaison Ordi
@@ -74,7 +74,7 @@ public class Deffenseur extends Mode {
                     //Boucle génére nouvelle unité tant que plus haute que précédente
                     do {
                         //Méthode random génére news units.Borne max ordi -1 pr évité les doublons
-                        unitPlusBas = deffObj.generateCode2(1, (unitCodeOrdi - 1));
+                        unitPlusBas = deffObj.generCodeInt(1, (unitCodeOrdi - 1));
                     } while (unitPlusBas > unitCodeOrdi);
                     stockCode[i] = unitPlusBas;//Stocke news code
                 }
@@ -83,14 +83,14 @@ public class Deffenseur extends Mode {
                     previousCode[i] = unitCodeOrdi;//lR[i]=e;
                     do {
                         //Méthode random génére news units.Borne min ordi +1 pr évité les doublons
-                        unitPlusHaut = deffObj.generateCode2((unitCodeOrdi + 1), unitCodeUser);
+                        unitPlusHaut = deffObj.generCodeInt((unitCodeOrdi + 1), unitCodeUser);
                     } while (unitPlusHaut < unitCodeOrdi);
                     stockCode[i] = unitPlusHaut;
                 }
                 //Génére unité égales
                 if (unitCodeUser == unitCodeOrdi) {
                     previousCode[i] = unitCodeOrdi;
-                    stockCode[i] = deffObj.generateCode2(unitCodeOrdi, unitCodeOrdi);
+                    stockCode[i] = deffObj.generCodeInt(unitCodeOrdi, unitCodeOrdi);
                 }
                 // aStk = aPcd;
             }
@@ -100,41 +100,35 @@ public class Deffenseur extends Mode {
         for (int j = 0; j < stockCode.length; j++) {
             newCode[j] = String.valueOf(stockCode[j]);
         }
+        //Transforme array String en String
         newCodeString = Deffenseur.ArrayToString(newCode);
-        //    aStk= aPcd;
-
-
-        //retour Arraylist
+        //retour nouvelle combinaison en String
         return newCodeString;
     }
-
-    public int generateCode2(int min, int max) {
-
-
-        int a = r.nextInt((max - min) + 1) + min; //Classe Random utiliser pour dÃ©finir les bornes max min de la combinaison
-        // String c = Integer.toString(a); //Conversion de la combi en string
-        return a; //Retour combinaison
+    //Génére news combi String
+    public String generateCode(int min, int max) {
+        int newCode = r.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
+        String newCodeString = Integer.toString(newCode); //Conversion de la combi en string
+        return newCodeString; //Retour combinaison
+    }
+    //Génére news unit int
+    public int generCodeInt(int min, int max) {
+        int newsUnit = r.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
+        return newsUnit; //Retour combinaison
     }
 
+    //Méthode qui converti un Array de String en String
     public static String ArrayToString(String[] strArray) {
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < strArray.length; i++) {
-            stringBuilder.append(strArray[i]);
+        stringBuilder.append(strArray[i]);
         }
         return stringBuilder.toString();
     }
-    public String generateCode(int min, int max) {
-
-
-
-        int a = r.nextInt((max - min) + 1) + min; //Classe Random utiliser pour dÃ©finir les bornes max min de la combinaison
-        String c = Integer.toString(a); //Conversion de la combi en string
-        return c; //Retour combinaison
-    }
+   //Méthode définie combinaison User
     public String define() {
         Scanner input = new Scanner(System.in);
-
-        System.out.println("Veuillez dÃ©finir votre combinaison");
+        System.out.println("Veuillez définir votre combinaison");
         return input.nextLine();// Retourne saisie du Scanner
     }
 
