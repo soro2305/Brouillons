@@ -1,59 +1,27 @@
-package com.company;
+package com.playerClasses;
 
-import java.lang.reflect.Array;
-import java.util.*;
+import com.company.Deffenseur;
 
-public class Deffenseur extends Mode {
-    //Defini le nombres de chiffre de combi
-    int max = 9999;
-    int min = 1000;
+import java.util.Random;
 
-    //Methode principale de defender
-    public void defender() {
-        //Initialisations des instances
-        Deffenseur deffObj1 = new Deffenseur();
-        Menu menuObj1 = new Menu();
-        String codeUser = "";
-        String codeOrdi = "";
-        String codeTempo = "";
-        int tours = 20;//Nombres de tours de la partie
-        int rejouer = 0;
-        int i;
-        System.out.println("Bienvenu dans le mode Déffenseur! ");
-        //Définition combinaison utilisateur
-        codeUser = deffObj1.define();
-        //Définition 1 er combinaison Ordi
-        codeOrdi = deffObj1.generateCode(min, max);
-        //Boucle paramètre le nombres de tentatives via la var int tours
-        for (i = 0; i <= m; i++) {
-            //Vérifie si les 2 combinaisons sont égales.Stop la partie si true
-            if (codeOrdi.equals(codeUser)) {
-                System.out.println("GAME OVER l'EA a trouver la solution  " + codeUser + " !!!\n\n\n\n\n ");//Conditions pour quitter la boucle si victoire de l'EA
-                break;
-            } else {
-                //Formate l affichage de sortie console
-                System.out.print("Proposition : " + codeOrdi + " -> Réponse : ");
-                //Méthode pour comparer les deux combinaisons et affiché "+-="
-                deffObj1.compare(codeOrdi, codeUser);
-                //Méthode pour générer nouvelle combinaison Ordi
+public class Ordi {
+    Random genere = new Random();
 
-                codeOrdi = deffObj1.newCodeOrdiFinal(codeOrdi, codeUser);
-                System.out.println("\n");
-                //Affiche Game over quand nombres de tours épuisés
-                if (i == tours) {
-                    System.out.println("\n\n\n\n\n\n\n ============== GAME OVER ============== \n");
-                }
 
-            }
-        }
-        //Envoie au menu final
-        rejouer = menuObj1.endMenu();
-        if (rejouer == 1) deffObj1.defender(); //Condition pour relancer mÃªme mode
 
+
+
+    //Méthode qui génère un code aléatoire String
+    public String generCodeString(int min, int max) {
+        int stockReponse = genere.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
+        String newCode = Integer.toString(stockReponse); //Conversion de la combi en string
+        return newCode; //Retour combinaison String
     }
-
-
-
+    //Génére news unit int
+    public int generCodeInt(int min, int max) {
+        int newsUnit = genere.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
+        return newsUnit; //Retour combinaison
+    }
     public String newCodeOrdiFinal(String codeOrdi1, String codeTempo) {
         //Initialisation Objets variables
         Deffenseur deffObj = new Deffenseur();
@@ -108,20 +76,6 @@ public class Deffenseur extends Mode {
         //retour nouvelle combinaison en String
         return newCodeString;
     }
-
-    //Génére news combi String
-    public String generateCode(int min, int max) {
-        int newCode = r.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
-        String newCodeString = Integer.toString(newCode); //Conversion de la combi en string
-        return newCodeString; //Retour combinaison
-    }
-
-    //Génére news unit int
-    public int generCodeInt(int min, int max) {
-        int newsUnit = r.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
-        return newsUnit; //Retour combinaison
-    }
-
     //Méthode qui converti un Array de String en String
     public static String ArrayToString(String[] strArray) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -130,12 +84,4 @@ public class Deffenseur extends Mode {
         }
         return stringBuilder.toString();
     }
-
-    //Méthode définie combinaison User
-    public String define() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Veuillez définir votre combinaison");
-        return input.nextLine();// Retourne saisie du Scanner
-    }
-
 }

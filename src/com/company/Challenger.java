@@ -40,6 +40,7 @@ public class Challenger extends Mode{
             }
         }
         //Envoie au menu final
+
         rejouer = menuObj1.endMenu();
         if (rejouer==1)challObj.attaque(); //Condition pour relancer même mode
     }
