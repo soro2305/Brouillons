@@ -4,126 +4,114 @@ import java.lang.reflect.Array;
 import java.util.*;
 
 public class Deffenseur extends Mode {
+    //Defini le nombres de chiffre de combi
     int max = 9999;
     int min = 1000;
-    List<String> lC = new ArrayList();
-    static    int lR[]=new int[9];
+
+//Methode principale de defender
     public void defender() {
         //Initialisations des instances
-        Deffenseur obj = new Deffenseur();
-        Menu obj1 = new Menu();
-
-        String sP = "";
-        String sE;
-        int m = 20;
-        int a = 0;
+        Deffenseur deffObj1 = new Deffenseur();
+        Menu menuObj1 = new Menu();
+        String codeUser = "";
+        String codeOrdi;
+        int tours = 20;//Nombres de tours de la partie
+        int rejouer = 0;
         int i;
-        System.out.println("Bienvenu dans le mode Déffenseur! ");
+        System.out.println("Bienvenu dans le mode DÃ©ffenseur! ");
         //Définition combinaison utilisateur
-        sP = obj.define();
-        sE = obj.generateCode(min, max);
-        //Boucle paramétre le nombre de tentative via la var "m"
+        codeUser = deffObj1.define();
+        //Définition 1 er combinaison Ordi
+        codeOrdi = deffObj1.generateCode(min, max);
+        //Boucle paramètre le nombres de tentatives via la var int tours
         for (i = 0; i <= m; i++) {
-
-            if (sE.equals(sP)) {
-                System.out.println("GAME OVER l'EA a trouver la solution  " + sP + " !!!\n\n\n\n\n ");//Conditions pour quitter la boucle si victoire de l'EA
+            //Vérifie si les 2 combinaisons sont égales.Stop la partie si true
+            if (codeOrdi.equals(codeUser)) {
+                System.out.println("GAME OVER l'EA a trouver la solution  " + codeUser + " !!!\n\n\n\n\n ");//Conditions pour quitter la boucle si victoire de l'EA
                 break;
             } else {
-
-                System.out.print("Proposition : " + sE + " -> Réponse : ");
-                //Méthode pour comparer les deux combinaisons
-                obj.compare(sE, sP);
-
-                sE = obj.generateNew(sE, sP);
-
-
+                //Formate l affichage de sortie console
+                System.out.print("Proposition : " + codeOrdi + " -> Réponse : ");
+                //Méthode pour comparer les deux combinaisons et affiché "+-="
+                deffObj1.compare(codeOrdi, codeUser);
+                //Méthode pour générer nouvelle combinaison Ordi
+                codeOrdi= deffObj1.newCodeOrdi(codeOrdi, codeUser);
                 System.out.println("\n");
-                if (i == m) {
+                //Affiche Game over quand nombres de tours épuisés
+                if (i == tours) {
                     System.out.println("\n\n\n\n\n\n\n ============== GAME OVER ============== \n");
                 }
 
             }
         }
         //Envoie au menu final
-        a = obj1.endMenu();
-        if (a == 1) obj.defender(); //Condition pour relancer même mode
+        rejouer = menuObj1.endMenu();
+        if (rejouer == 1) deffObj1.defender(); //Condition pour relancer mÃªme mode
 
     }
 
-    public String generateNew(String sE, String sP) {
-        Deffenseur obj = new Deffenseur();
-        List<String> lS = new ArrayList();
-        List<Integer> lA = new ArrayList();
-        int g = 0;
-        int h = 0;
-
-        int aPcd[] = new int[4];
-        int aStk[] = new int[4];
-        String aFnl[] = new String[aStk.length];
-        boolean b = true;
-        String newSe = "";
-        //   List<String> lC = new ArrayList();
-
-
-        //Deux boucles pour convertir chaque caractères des args en int.
-        for (int i = 0; i < sE.length(); i++) {
-            for (int i2 = 0; i < sP.length(); i++) {
-
-                int p = Character.getNumericValue(sP.charAt(i));
-                int e = Character.getNumericValue(sE.charAt(i));
-                // System.out.print(e);
-                //Conditions pour comparer et définir l'indication à retourner
-                if (p < e) {
-                    // lC.add(Integer.toString(e - 1));
-                       aPcd[i]=e;//lR[i]=e;
+    public String newCodeOrdi(String codeOrdi1, String codeUser1) {
+        //Initialisation Objets variables
+        Deffenseur deffObj = new Deffenseur();
+        int unitPlusHaut = 0;
+        int unitPlusBas = 0;
+        int nombreUnit = 4;
+        //Array pr stocker current en int et combi final en String
+        int[] previousCode = new int[nombreUnit];//Stocke ancien code int
+        int[] stockCode = new int[nombreUnit];//Stocke news code int
+        String newCode[] = new String[stockCode.length];//Stocke news code int
+        //Reponse final format String
+        String newCodeString = "";
+        //Deux boucles pour séparés caractères des code Ordi et User
+        for (int i = 0; i < codeOrdi1.length(); i++) {
+            for (int i2 = 0; i < codeUser1.length(); i++) {
+                //Stockage de ses caractères dans des var int
+                int unitCodeUser = Character.getNumericValue(codeUser1.charAt(i));
+                int unitCodeOrdi = Character.getNumericValue(codeOrdi1.charAt(i));
+                //Conditions pour comparer si les futur unités combi Ordi doivent êtres "-+="
+                if (unitCodeUser < unitCodeOrdi) {
+                    previousCode[i] = unitCodeOrdi;//Stocke ancien code
+                    //Boucle génére nouvelle unité tant que plus haute que précédente
                     do {
-                         g  = obj.generateCode2(1, (e - p));
-
-                    } while (h>e) ;                                            //        (aPcd[i] > aStk[i]);
-                    aStk[i] = g;
-                    // && (aStk[i] != lR[i]));
-                    //    lR.add(obj.generateCode2(1,(e-1)));
-                    // }while (lA.get(i)<lR.get(i));
+                        //Méthode random génére news units.Borne max ordi -1 pr évité les doublons
+                        unitPlusBas = deffObj.generateCode2(1, (unitCodeOrdi - 1));
+                    } while (unitPlusBas > unitCodeOrdi);
+                    stockCode[i] = unitPlusBas;//Stocke news code
                 }
-                if (p > e) {
-                    aPcd[i] = e;//lR[i]=e;
+                //Boucle génére nouvelle unité tant que plus basse que précédente
+                if (unitCodeUser > unitCodeOrdi) {
+                    previousCode[i] = unitCodeOrdi;//lR[i]=e;
                     do {
-                      h = obj.generateCode2((e + 1), p);
-                    } while     (h<e) ;                                           //(aPcd[i] < aStk[i]);
-                    aStk[i]=h;
-                    // && (aStk[i] != lR[i]));
-                    // lC.add(Integer.toString(e + 1));
-//                    lA.add(e);
-//                    do {
-//                        lR.add(obj.generateCode2((e+1),9));
-//                    }while (lA.get(i)>lR.get(i));
+                        //Méthode random génére news units.Borne min ordi +1 pr évité les doublons
+                        unitPlusHaut = deffObj.generateCode2((unitCodeOrdi + 1), unitCodeUser);
+                    } while (unitPlusHaut < unitCodeOrdi);
+                    stockCode[i] = unitPlusHaut;
                 }
-                if (p == e) {
-                    aStk[i] = e;//lR[i]=e;
-
-                    aStk[i] = obj.generateCode2(e, e);
+                //Génére unité égales
+                if (unitCodeUser == unitCodeOrdi) {
+                    previousCode[i] = unitCodeOrdi;
+                    stockCode[i] = deffObj.generateCode2(unitCodeOrdi, unitCodeOrdi);
                 }
-               // aStk = aPcd;
+                // aStk = aPcd;
             }
         }
 
         //   Transforme int array en string array
-        for (int j = 0; j < aStk.length; j++) {
-            aFnl[j] = String.valueOf(aStk[j]);
+        for (int j = 0; j < stockCode.length; j++) {
+            newCode[j] = String.valueOf(stockCode[j]);
         }
-        newSe = Deffenseur.ArrayToString(aFnl);
-        aStk= aPcd;
-        System.out.println(" constante final "+Deffenseur.ArrayToString(aFnl));
-        System.out.println(" constante precedent "+Deffenseur.ArrayToString(aFnl));
+        newCodeString = Deffenseur.ArrayToString(newCode);
+        //    aStk= aPcd;
+
 
         //retour Arraylist
-        return newSe;
+        return newCodeString;
     }
 
     public int generateCode2(int min, int max) {
 
 
-        int a = r.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
+        int a = r.nextInt((max - min) + 1) + min; //Classe Random utiliser pour dÃ©finir les bornes max min de la combinaison
         // String c = Integer.toString(a); //Conversion de la combi en string
         return a; //Retour combinaison
     }
@@ -135,4 +123,19 @@ public class Deffenseur extends Mode {
         }
         return stringBuilder.toString();
     }
+    public String generateCode(int min, int max) {
+
+
+
+        int a = r.nextInt((max - min) + 1) + min; //Classe Random utiliser pour dÃ©finir les bornes max min de la combinaison
+        String c = Integer.toString(a); //Conversion de la combi en string
+        return c; //Retour combinaison
+    }
+    public String define() {
+        Scanner input = new Scanner(System.in);
+
+        System.out.println("Veuillez dÃ©finir votre combinaison");
+        return input.nextLine();// Retourne saisie du Scanner
+    }
+
 }

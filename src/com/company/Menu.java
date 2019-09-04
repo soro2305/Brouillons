@@ -8,6 +8,7 @@ public class Menu  {
         //Initialisation des instances
       //  Challenger choix = new Challenger();
         Deffenseur choix1 = new Deffenseur();
+        Deffenseur choix2 = new Deffenseur();
         Scanner input = new Scanner(System.in);
         char option = '\0';
 
@@ -33,6 +34,7 @@ public class Menu  {
                 break;
             case 'C':
                 // choix.duo();
+                choix2.defender();
                 break;
             case 'D':
                 //choix.settings();

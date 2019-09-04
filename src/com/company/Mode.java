@@ -8,7 +8,7 @@ import java.util.Scanner;
 public class Mode {
     //Initialisation des instances
     Random r = new Random();
-    Scanner input = new Scanner(System.in);
+    Scanner saisieUser = new Scanner(System.in);
     int m = 4;
 
     public void compare(String sP, String sE) {
@@ -34,20 +34,17 @@ public class Mode {
 
     }
 
-    //Méthode qui génère un code aléatoire
-    public String generateCode(int min, int max) {
-
-
-
-        int a = r.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
-        String c = Integer.toString(a); //Conversion de la combi en string
-        return c; //Retour combinaison
+    //Méthode qui génère un code aléatoire String
+    public String generCodeString(int min, int max) {
+        int stockReponse = r.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
+        String newCode = Integer.toString(stockReponse); //Conversion de la combi en string
+        return newCode; //Retour combinaison String
     }
 
     //Méthode qui permet à l'utilisateur d'entré une combinaison
-    public String define() {
+    public String defineCodeUser() {
         System.out.println("Veuillez définir votre combinaison");
-        return input.nextLine();// Retourne saisie du Scanner
+        return saisieUser.nextLine();// Retourne saisie du Scanner
     }
 
     public void Startmenu() {
