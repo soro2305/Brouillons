@@ -1,30 +1,64 @@
-package com.playerClasses;
+package com.company;
 
-import com.company.Deffenseur;
-
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
+import java.util.Scanner;
 
-public class Ordi {
-    Random genere = new Random();
+public class Player {
+    //Initialisation des instances
+    Random r = new Random();
+    Scanner saisieUser = new Scanner(System.in);
+    int tours = 4;
+
+    public void compare(String sP, String sE) {
 
 
-
-
+        //Deux boucles pour convertir chaque caractères des args en int.
+        for (int i = 0; i < sE.length(); i++) {
+            for (int i2 = 0; i < sP.length(); i++) {
+                int b = Character.getNumericValue(sP.charAt(i));
+                int a = Character.getNumericValue(sE.charAt(i));
+                //Conditions pour comparer et définir l'indication à retourner
+                if (a < b) {
+                    System.out.print("-");
+                }
+                if (a > b) {
+                    System.out.print("+");
+                }
+                if (a == b) {
+                    System.out.print("=");
+                }
+            }
+        }
+    }
+    //Méthode définie combinaison User
+    public String define() {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Veuillez définir votre combinaison");
+        return input.nextLine();// Retourne saisie du Scanner
+    }
 
     //Méthode qui génère un code aléatoire String
     public String generCodeString(int min, int max) {
-        int stockReponse = genere.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
+        int stockReponse = r.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
         String newCode = Integer.toString(stockReponse); //Conversion de la combi en string
         return newCode; //Retour combinaison String
     }
     //Génére news unit int
     public int generCodeInt(int min, int max) {
-        int newsUnit = genere.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
+        int newsUnit = r.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
         return newsUnit; //Retour combinaison
     }
-    public String newCodeOrdiFinal(String codeOrdi1, String codeTempo) {
+
+    //Méthode qui permet à l'utilisateur d'entré une combinaison
+    public String defineCodeUser() {
+        System.out.println("Veuillez définir votre combinaison");
+        return saisieUser.nextLine();// Retourne saisie du Scanner
+    }
+    public String newCodeOrdi(String codeOrdi1, String codeTempo) {
         //Initialisation Objets variables
-        Deffenseur deffObj = new Deffenseur();
+        Player deffObj = new Player();
         int unitPlusHaut = 0;
         int unitPlusBas = 0;
         int nombreUnit = 4;
@@ -76,6 +110,7 @@ public class Ordi {
         //retour nouvelle combinaison en String
         return newCodeString;
     }
+
     //Méthode qui converti un Array de String en String
     public static String ArrayToString(String[] strArray) {
         StringBuilder stringBuilder = new StringBuilder();
@@ -84,4 +119,6 @@ public class Ordi {
         }
         return stringBuilder.toString();
     }
+
 }
+

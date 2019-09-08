@@ -6,7 +6,7 @@ public class Menu  {
 
     public void startMenu (){
         //Initialisation des instances
-      //  Challenger choix = new Challenger();
+        Challenger choix = new Challenger();
         Deffenseur choix1 = new Deffenseur();
         Deffenseur choix2 = new Deffenseur();
         Scanner input = new Scanner(System.in);
@@ -27,7 +27,7 @@ public class Menu  {
         // Utilisation de switch contient les choix du menu
         switch (option) {
             case 'A'://===== Choix A envoie classe Challenger ======
-           //     choix.attaque();
+                choix.attaque();
                 break;
             case 'B'://====== Choix B envoie classe Defensseur =======
                 choix1.defender();

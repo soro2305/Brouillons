@@ -3,7 +3,7 @@ package com.company;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Challenger extends Mode{
+public class Challenger extends Player{
 
 
     public void attaque() {
