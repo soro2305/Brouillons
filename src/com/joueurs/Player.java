@@ -1,15 +1,11 @@
 package com.joueurs;
 
-import com.company.Deffenseur;
-
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
 
 public class Player {
     //Initialisation des instances
-    Random r = new Random();
+    Random genere = new Random();
     Scanner saisieUser = new Scanner(System.in);
     int tours = 4;
 
@@ -38,22 +34,29 @@ public class Player {
 
     //Méthode qui génère un code aléatoire String
     public String generCodeString(int min, int max) {
-        int stockReponse = r.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
+        int stockReponse = genere.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
         String newCode = Integer.toString(stockReponse); //Conversion de la combi en string
         return newCode; //Retour combinaison String
     }
+
     //Génére news unit int
     public int generCodeInt(int min, int max) {
-        int newsUnit = r.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
+        int newsUnit = genere.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
         return newsUnit; //Retour combinaison
     }
 
     //Méthode qui permet à l'utilisateur d'entré une combinaison
     public String defineCodeUser() {
-        System.out.println("Veuillez définir votre combinaison");
+        System.out.println("Veuillez définir une combinaison que l'Ordi doit deviner !!!");
         return saisieUser.nextLine();// Retourne saisie du Scanner
     }
-    public String newCodeOrdi(String codeOrdi1, String codeTempo) {
+    //Méthode qui permet à l'utilisateur d'entré une combinaison
+    public String attemptUser() {
+        System.out.println("Deviner la combinaison secrète de l'Ordi. C'est à vous !!! ");
+        return saisieUser.nextLine();// Retourne saisie du Scanner
+    }
+
+    public String newCodeOrdi(String codeOrdi1, String codeUser) {
         //Initialisation Objets variables
         Player playerObj = new Player();
         int unitPlusHaut = 0;
@@ -67,9 +70,9 @@ public class Player {
         String newCodeString = "";
         //Deux boucles pour séparés caractères des code Ordi et User
         for (int i = 0; i < codeOrdi1.length(); i++) {
-            for (int i2 = 0; i < codeTempo.length(); i++) {
+            for (int i2 = 0; i < codeUser.length(); i++) {
                 //Stockage de ses caractères dans des var int
-                int unitCodeUser = Character.getNumericValue(codeTempo.charAt(i));
+                int unitCodeUser = Character.getNumericValue(codeUser.charAt(i));
                 int unitCodeOrdi = Character.getNumericValue(codeOrdi1.charAt(i));
                 //Conditions pour comparer si les futur unités combi Ordi doivent êtres "-+="
                 if (unitCodeUser < unitCodeOrdi) {

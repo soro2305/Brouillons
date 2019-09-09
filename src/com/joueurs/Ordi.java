@@ -2,13 +2,13 @@ package com.joueurs;
 
 public class Ordi extends Player{ //Méthode qui génère un code aléatoire String
     public String generCodeString(int min, int max) {
-        int stockReponse = r.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
+        int stockReponse = genere.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
         String newCode = Integer.toString(stockReponse); //Conversion de la combi en string
         return newCode; //Retour combinaison String
     }
     //Génére news unit int
     public int generCodeInt(int min, int max) {
-        int newsUnit = r.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
+        int newsUnit = genere.nextInt((max - min) + 1) + min; //Classe Random utiliser pour définir les bornes max min de la combinaison
         return newsUnit; //Retour combinaison
     }
 

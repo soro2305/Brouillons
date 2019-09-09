@@ -4,18 +4,17 @@ import com.company.Mode;
 
 import java.util.Scanner;
 
-public class User  {
+public class User {
 
 
-
-
-    public void startMenuUser  (){
+    public void startMenuUser() {
         //Initialisation des instances
         Mode choixObj = new Mode();
         Scanner input = new Scanner(System.in);
         char option = '\0';
 
         //===== Menu d accueil ======
+        System.out.println("\n ============================= Bienvenue dans Guess My Code !!! ========================== \n");
         System.out.println("Choisissait une options en tapant la lettre correspondante");
         System.out.println("A-Challenger");
         System.out.println("B-Déffenseur");
@@ -28,14 +27,17 @@ public class User  {
         // Utilisation de switch contient les choix du menu
         switch (option) {
             case 'A'://===== Choix A envoie classe Challenger ======
+                System.out.println("============================= Bienvenue dans le mode Challenger ========================== \n");
                 choixObj.attaque();
                 break;
             case 'B'://====== Choix B envoie classe Defensseur =======
+                System.out.println("============================ Bienvenue dans le mode Déffenseur =========================== \n");
                 choixObj.defender();
                 break;
             case 'C':
-                // choix.duo();
-
+                System.out.println("=========================== Bienvenue dans le mode Duel ================================== \n");
+                System.out.println("Le premier à trouver la combinaison adverse gagne la partie !!! \n");
+                choixObj.duel();
                 break;
             case 'D':
                 //choix.settings();
@@ -49,14 +51,13 @@ public class User  {
         }
 
 
-
     }
 
-    public int endMenuUser (){
+    public int endMenuUser() {
         Scanner input = new Scanner(System.in);
-      //  Menu choix = new Menu();
+        //  Menu choix = new Menu();
         Mode choixObj = new Mode();
-         User choix = new User();
+        User choix = new User();
 
         int a = 0;
 
@@ -71,7 +72,8 @@ public class User  {
 
         switch (option2) {
 
-            case 'A':  a = 1;//Condition pour relancer même mode
+            case 'A':
+                a = 1;//Condition pour relancer même mode
 
                 break;
             case 'B':
