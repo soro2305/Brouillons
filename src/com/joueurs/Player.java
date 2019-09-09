@@ -1,4 +1,6 @@
-package com.company;
+package com.joueurs;
+
+import com.company.Deffenseur;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,12 +34,7 @@ public class Player {
             }
         }
     }
-    //Méthode définie combinaison User
-    public String define() {
-        Scanner input = new Scanner(System.in);
-        System.out.println("Veuillez définir votre combinaison");
-        return input.nextLine();// Retourne saisie du Scanner
-    }
+
 
     //Méthode qui génère un code aléatoire String
     public String generCodeString(int min, int max) {
@@ -58,7 +55,7 @@ public class Player {
     }
     public String newCodeOrdi(String codeOrdi1, String codeTempo) {
         //Initialisation Objets variables
-        Player deffObj = new Player();
+        Player playerObj = new Player();
         int unitPlusHaut = 0;
         int unitPlusBas = 0;
         int nombreUnit = 4;
@@ -80,7 +77,7 @@ public class Player {
                     //Boucle génére nouvelle unité tant que plus haute que précédente
                     do {
                         //Méthode random génére news units.Borne max ordi -1 pr évité les doublons
-                        unitPlusBas = deffObj.generCodeInt(1, (unitCodeOrdi - 1));
+                        unitPlusBas = playerObj.generCodeInt(1, (unitCodeOrdi - 1));
                     } while (unitPlusBas > unitCodeOrdi);
                     stockCode[i] = unitPlusBas;//Stocke news code
                 }
@@ -89,14 +86,14 @@ public class Player {
                     previousCode[i] = unitCodeOrdi;//lR[i]=e;
                     do {
                         //Méthode random génére news units.Borne min ordi +1 pr évité les doublons
-                        unitPlusHaut = deffObj.generCodeInt((unitCodeOrdi + 1), unitCodeUser);
+                        unitPlusHaut = playerObj.generCodeInt((unitCodeOrdi + 1), unitCodeUser);
                     } while (unitPlusHaut < unitCodeOrdi);
                     stockCode[i] = unitPlusHaut;
                 }
                 //Génére unité égales
                 if (unitCodeUser == unitCodeOrdi) {
                     previousCode[i] = unitCodeOrdi;
-                    stockCode[i] = deffObj.generCodeInt(unitCodeOrdi, unitCodeOrdi);
+                    stockCode[i] = playerObj.generCodeInt(unitCodeOrdi, unitCodeOrdi);
                 }
             }
         }
@@ -106,7 +103,7 @@ public class Player {
             newCode[j] = String.valueOf(stockCode[j]);
         }
         //Transforme array String en String
-        newCodeString = Deffenseur.ArrayToString(newCode);
+        newCodeString = Player.ArrayToString(newCode);
         //retour nouvelle combinaison en String
         return newCodeString;
     }

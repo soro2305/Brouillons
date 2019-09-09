@@ -1,12 +1,17 @@
 package com.company;
 
-public class Main  {
+import com.joueurs.User;
+
+public class Main {
 
     public static void main(String[] args) {
 
         //Initialisation d instances
-        Menu menu = new Menu();
-        menu.startMenu();
+        //  Menu start = new Menu();
+        //  start.startMenu();
+
+        User start = new User();
+        start.startMenuUser();
         System.out.println("Merci a bientot !");
         //  menu.endMenu();
 

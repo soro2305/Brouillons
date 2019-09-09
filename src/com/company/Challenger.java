@@ -1,9 +1,12 @@
 package com.company;
 
+import com.joueurs.Player;
+import com.joueurs.User;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Challenger extends Player{
+public class Challenger extends Player {
 
 
     public void attaque() {

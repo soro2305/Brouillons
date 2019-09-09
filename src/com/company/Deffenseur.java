@@ -1,5 +1,7 @@
 package com.company;
 
+import com.joueurs.Player;
+
 import java.lang.reflect.Array;
 import java.util.*;
 
